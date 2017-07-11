@@ -18,7 +18,7 @@ services:
       - ES_JAVA_OPTS=-Xms1g -Xmx1g
 
   starchat:
-    image: elegansio/starchat:1.2.0-231-gb7b2772-SNAPSHOT
+    image: elegansio/starchat:latest
     command: ["/starchat/scripts/utils/wait-for-it.sh", "getjenny-es", "9300", "10", "/starchat/bin/starchat"]
     volumes:
       - ./starchat/config:/starchat/config
