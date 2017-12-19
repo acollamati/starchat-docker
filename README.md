@@ -29,6 +29,10 @@ docker-compose up -d
 
 After the service are up and running you will need to initialize StarChat (more about StarChat on the [documentation](https://getjenny.github.io/starchat-doc))
 
+## Troubleshooting
+
+Problems (e.g. `max virtual memory areas ....`)? Have a look at the [troubleshootig](https://getjenny.github.io/starchat-doc/#troubleshooting) section in the documentation.
+
 # How to contribute
 
 To contribute to StarChat, please send us a [pull request](https://help.github.com/articles/using-pull-requests/#fork--pull) 
