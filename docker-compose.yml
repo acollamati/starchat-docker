@@ -23,6 +23,7 @@ services:
     restart: unless-stopped
     command: ["/starchat/scripts/utils/wait-for-it.sh", "getjenny-es", "9200", "10", "/starchat/bin/starchat"]
     volumes:
+      - ./starchat/config:/starchat/config
       - ./starchat/log:/starchat/log
     ports:
       - "0.0.0.0:8888:8888"
