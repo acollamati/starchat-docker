@@ -1,4 +1,4 @@
-version: "3.4"
+version: "3.2"
 services:
 
   elasticsearch:
@@ -19,19 +19,26 @@ services:
       - MAX_LOCKED_MEMORY=unlimited
 
   starchat:
-    image: getjenny/starchat:4.1.0
+    image: elegansio/starchat:4.1.0
     restart: unless-stopped
-    command: ["/starchat/scripts/utils/wait-for-it.sh", "${ELASTICSEARCH_HOST}", "9200", "10", "/starchat/bin/starchat"]
+    command: ["/starchat/scripts/utils/wait-for-it.sh", "getjenny-es", "9200", "10", "/starchat/bin/starchat"]
     volumes:
       - ./starchat/config:/starchat/config
       - ./starchat/log:/starchat/log
     ports:
       - "0.0.0.0:8888:8888"
       - "0.0.0.0:8443:8443"
-    healthcheck:
-      test: curl -f http://localhost:8888/ || exit 1
-      interval: 1m30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
+    links:
+      - "elasticsearch:getjenny-es"
+
+  manaus:
+    image: elegansio/manaus:2.0.1
+    restart: unless-stopped
+    volumes:
+      - ./manaus/data:/manaus/data
+      - ./manaus/log:/manaus/log
+    command: ["/manaus/scripts/wait-for-it.sh", "getjenny-es", "9200", "5", "/manaus/bin/continuous-keywords-update-all-indexes", "--temp_data_folder", "manaus/data", "--host_map", "getjenny-es=9300", "--interval_sec", "5", "--word_frequencies", "manaus/statistics_data", "--cluster_name", "starchat"]
+    links:
+      - "starchat:starchat"
+      - "elasticsearch:getjenny-es"
 
