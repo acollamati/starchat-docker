@@ -2,7 +2,7 @@ version: "3.4"
 services:
 
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
     restart: unless-stopped
     command: elasticsearch
     ports:
@@ -19,9 +19,9 @@ services:
       - MAX_LOCKED_MEMORY=unlimited
 
   starchat:
-    image: getjenny/starchat:5.0.0-beta7
+    image: getjenny/starchat:5.0.0-beta14
     restart: unless-stopped
-    command: ["/starchat/scripts/utils/wait-for-it.sh", "${ELASTICSEARCH_HOST}", "9200", "10", "/starchat/bin/starchat"]
+    command: ["/starchat/scripts/utils/wait-for-it.sh", "https://getjenny-es", "9200", "10", "/starchat/bin/starchat"]
     volumes:
       - ./starchat/config:/starchat/config
       - ./starchat/log:/starchat/log
@@ -34,4 +34,5 @@ services:
       timeout: 10s
       retries: 3
       start_period: 30s
-
+    links:
+      - "elasticsearch:getjenny-es"
