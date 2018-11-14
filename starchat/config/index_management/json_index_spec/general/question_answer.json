@@ -1,6 +1,6 @@
 {
   "mappings": {
-    "question": {
+    "question_answer": {
       "properties": {
         "doctype": {
           "type": "keyword",
@@ -44,11 +44,6 @@
               "type": "text",
               "fielddata": true,
               "analyzer": "jenny_base_analyzer"
-            },
-            "base_bm25": {
-              "type": "text",
-              "analyzer": "jenny_base_analyzer",
-              "similarity": "BM25"
             }
           }
         },
@@ -56,39 +51,66 @@
           "type": "text",
           "store": true,
           "fields": {
+            "freq": {
+              "type": "text",
+              "analyzer": "jenny_base_analyzer",
+              "similarity": "scripted_term_freq"
+            },
             "raw": {
               "type": "keyword",
               "ignore_above": 10922
             },
+            "space_punctuation": {
+              "type": "text",
+              "fielddata": true,
+              "term_vector": "with_positions_offsets",
+              "analyzer": "jenny_space_punctuation_analyzer"
+            },
             "base": {
               "type": "text",
               "fielddata": true,
+              "term_vector": "with_positions_offsets",
               "analyzer": "jenny_base_analyzer"
             },
-            "base_bm25": {
+            "raw_nolc": {
               "type": "text",
-              "analyzer": "jenny_base_analyzer",
-              "similarity": "BM25"
+              "analyzer": "jenny_raw_nolc_analyzer"
+            },
+            "space_punctuation_nolc": {
+              "type": "text",
+              "fielddata": true,
+              "term_vector": "with_positions_offsets",
+              "analyzer": "jenny_space_punctuation_nolc_analyzer"
+            },
+            "base_nolc": {
+              "type": "text",
+              "fielddata": true,
+              "term_vector": "with_positions_offsets",
+              "analyzer": "jenny_base_nolc_analyzer"
+            },
+            "base_length": {
+              "type":     "token_count",
+              "analyzer": "jenny_base_analyzer"
             },
             "stop": {
               "type": "text",
               "fielddata": true,
+              "term_vector": "with_positions_offsets",
               "analyzer": "jenny_stop_analyzer"
             },
-            "stop_bm25": {
-              "type": "text",
-              "analyzer": "jenny_stop_analyzer",
-              "similarity": "BM25"
+            "stop_length": {
+              "type":     "token_count",
+              "analyzer": "jenny_stop_analyzer"
             },
             "stem": {
               "type": "text",
               "fielddata": true,
+              "term_vector": "with_positions_offsets",
               "analyzer": "jenny_stem_analyzer"
             },
-            "stem_bm25": {
-              "type": "text",
-              "analyzer": "jenny_stem_analyzer",
-              "similarity": "BM25"
+            "stem_length": {
+              "type":     "token_count",
+              "analyzer": "jenny_stem_analyzer"
             },
             "shingles_2": {
               "type": "text",
@@ -123,36 +145,66 @@
               "type": "text",
               "store": true,
               "fields": {
+                "freq": {
+                  "type": "text",
+                  "analyzer": "jenny_base_analyzer",
+                  "similarity": "scripted_term_freq"
+                },
                 "raw": {
                   "type": "keyword",
                   "ignore_above": 10922
                 },
+                "space_punctuation": {
+                  "type": "text",
+                  "fielddata": true,
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "jenny_space_punctuation_analyzer"
+                },
                 "base": {
                   "type": "text",
+                  "fielddata": true,
+                  "term_vector": "with_positions_offsets",
                   "analyzer": "jenny_base_analyzer"
                 },
-                "base_bm25": {
+                "raw_nolc": {
                   "type": "text",
-                  "analyzer": "jenny_base_analyzer",
-                  "similarity": "BM25"
+                  "analyzer": "jenny_raw_nolc_analyzer"
+                },
+                "space_punctuation_nolc": {
+                  "type": "text",
+                  "fielddata": true,
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "jenny_space_punctuation_nolc_analyzer"
+                },
+                "base_nolc": {
+                  "type": "text",
+                  "fielddata": true,
+                  "term_vector": "with_positions_offsets",
+                  "analyzer": "jenny_base_nolc_analyzer"
+                },
+                "base_length": {
+                  "type":     "token_count",
+                  "analyzer": "jenny_base_analyzer"
                 },
                 "stop": {
                   "type": "text",
+                  "fielddata": true,
+                  "term_vector": "with_positions_offsets",
                   "analyzer": "jenny_stop_analyzer"
                 },
-                "stop_bm25": {
-                  "type": "text",
-                  "analyzer": "jenny_stop_analyzer",
-                  "similarity": "BM25"
+                "stop_length": {
+                  "type":     "token_count",
+                  "analyzer": "jenny_stop_analyzer"
                 },
                 "stem": {
                   "type": "text",
+                  "fielddata": true,
+                  "term_vector": "with_positions_offsets",
                   "analyzer": "jenny_stem_analyzer"
                 },
-                "stem_bm25": {
-                  "type": "text",
-                  "analyzer": "jenny_stem_analyzer",
-                  "similarity": "BM25"
+                "stem_length": {
+                  "type":     "token_count",
+                  "analyzer": "jenny_stem_analyzer"
                 },
                 "shingles_2": {
                   "type": "text",
@@ -184,7 +236,7 @@
         },
         "question_vector": {
           "type": "text",
-          "term_vector": "with_positions_offsets_payloads",
+          "term_vector": "with_positions_offsets",
           "analyzer": "jenny_delimited_double"
         },
         "question_scored_terms": {
@@ -204,39 +256,66 @@
           "type": "text",
           "store": true,
           "fields": {
+            "freq": {
+              "type": "text",
+              "analyzer": "jenny_base_analyzer",
+              "similarity": "scripted_term_freq"
+            },
             "raw": {
               "type": "keyword",
               "ignore_above": 10922
             },
+            "space_punctuation": {
+              "type": "text",
+              "fielddata": true,
+              "term_vector": "with_positions_offsets",
+              "analyzer": "jenny_space_punctuation_analyzer"
+            },
             "base": {
               "type": "text",
               "fielddata": true,
+              "term_vector": "with_positions_offsets",
               "analyzer": "jenny_base_analyzer"
             },
-            "base_bm25": {
+            "raw_nolc": {
               "type": "text",
-              "analyzer": "jenny_base_analyzer",
-              "similarity": "BM25"
+              "analyzer": "jenny_raw_nolc_analyzer"
+            },
+            "space_punctuation_nolc": {
+              "type": "text",
+              "fielddata": true,
+              "term_vector": "with_positions_offsets",
+              "analyzer": "jenny_space_punctuation_nolc_analyzer"
+            },
+            "base_nolc": {
+              "type": "text",
+              "fielddata": true,
+              "term_vector": "with_positions_offsets",
+              "analyzer": "jenny_base_nolc_analyzer"
+            },
+            "base_length": {
+              "type":     "token_count",
+              "analyzer": "jenny_base_analyzer"
             },
             "stop": {
               "type": "text",
               "fielddata": true,
+              "term_vector": "with_positions_offsets",
               "analyzer": "jenny_stop_analyzer"
             },
-            "stop_bm25": {
-              "type": "text",
-              "analyzer": "jenny_stop_analyzer",
-              "similarity": "BM25"
+            "stop_length": {
+              "type":     "token_count",
+              "analyzer": "jenny_stop_analyzer"
             },
             "stem": {
               "type": "text",
               "fielddata": true,
+              "term_vector": "with_positions_offsets",
               "analyzer": "jenny_stem_analyzer"
             },
-            "stem_bm25": {
-              "type": "text",
-              "analyzer": "jenny_stem_analyzer",
-              "similarity": "BM25"
+            "stem_length": {
+              "type":     "token_count",
+              "analyzer": "jenny_stem_analyzer"
             },
             "shingles_2": {
               "type": "text",
@@ -266,7 +345,7 @@
         },
         "answer_vector": {
           "type": "text",
-          "term_vector": "with_positions_offsets_payloads",
+          "term_vector": "with_positions_offsets",
           "analyzer": "jenny_delimited_double"
         },
         "answer_scored_terms": {

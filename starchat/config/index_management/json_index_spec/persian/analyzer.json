@@ -1,6 +1,14 @@
 {
   "index.queries.cache.enabled": true,
   "index.requests.cache.enable": true,
+  "similarity": {
+    "scripted_term_freq": {
+      "type": "scripted",
+      "script": {
+        "source": "return doc.freq ;"
+      }
+    }
+  },
   "analysis":
   {
     "tokenizer": {
@@ -47,26 +55,32 @@
         "min_shingle_size": 4,
         "max_shingle_size": 4,
         "output_unigrams": true
-      },
-      "jenny_persian_shingle_2_10":
-      {
-        "type":	"shingle",
-        "min_shingle_size": 2,
-        "max_shingle_size": 10,
-        "output_unigrams": true
       }
     },
     "analyzer":
     {
+      "jenny_raw_nolc_analyzer":
+      {
+        "tokenizer":    "keyword"
+      },
+      "jenny_space_punctuation_nolc_analyzer":
+      {
+        "tokenizer":    "space_punctuation"
+      },
+      "jenny_base_nolc_analyzer":
+      {
+        "tokenizer":    "standard"
+      },
       "jenny_raw_analyzer":
       {
         "tokenizer":    "keyword",
-        "filter":       [ "lowercase"]
+        "filter":       [ "lowercase" ]
       },
       "jenny_space_punctuation_analyzer":
       {
         "tokenizer":    "space_punctuation",
-        "filter":       [ "lowercase"]
+        "filter":       [ "lowercase" ],
+        "char_filter":  [ "&_to_and" ]
       },
       "jenny_base_analyzer":
       {
@@ -128,22 +142,10 @@
         "char_filter":  [ "html_strip", "&_to_and" ],
         "filter":       [ "lowercase", "persian_stemmer", "jenny_persian_shingle_4"]
       },
-      "jenny_shingles_2_10_analyzer":
-      {
-        "tokenizer":    "standard",
-        "char_filter":  [ "html_strip", "&_to_and" ],
-        "filter":       [ "lowercase", "jenny_persian_shingle_2_10"]
-      },
-      "jenny_stemmed_shingles_2_10_analyzer":
-      {
-        "tokenizer":    "standard",
-        "char_filter":  [ "html_strip", "&_to_and" ],
-        "filter":       [ "lowercase", "persian_stemmer", "jenny_persian_shingle_2_10"]
-      },
       "jenny_delimited_double": {
         "tokenizer":"whitespace",
         "encoding": "double",
-        "filter": "delimited_payload_filter"
+        "filter": "delimited_payload"
       }
     }
   }
