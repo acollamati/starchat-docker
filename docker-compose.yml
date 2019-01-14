@@ -19,7 +19,7 @@ services:
       - MAX_LOCKED_MEMORY=unlimited
 
   starchat:
-    image: getjenny/starchat:4.1.2
+    image: getjenny/starchat:4.1.5
     restart: unless-stopped
     command: ["/starchat/scripts/utils/wait-for-it.sh", "getjenny-es", "9200", "10", "/starchat/bin/starchat"]
     volumes:
@@ -32,7 +32,7 @@ services:
       - "elasticsearch:getjenny-es"
 
   manaus:
-    image: elegansio/manaus:2.0.1
+    image: elegansio/manaus:2.0.3
     restart: unless-stopped
     volumes:
       - ./manaus/data:/manaus/data
