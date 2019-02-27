@@ -2,8 +2,11 @@
   "mappings": {
     "refresh_decisiontable": {
       "properties": {
-        "state_refresh_ts": {
-          "type": "long"
+        "timestamp": {
+          "type": "date",
+          "format": "epoch_millis",
+          "store": true,
+          "index": true
         }
       }
     }
