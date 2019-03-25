@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "cluster_nodes": {
+      "properties": {
+        "timestamp": {
+          "type": "date",
+          "format": "epoch_millis",
+          "store": true,
+          "index": true
+        }
+      }
+    }
+  }
+}
